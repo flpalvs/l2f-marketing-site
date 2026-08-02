@@ -118,16 +118,24 @@
     var section = document.getElementById("projetos");
     var last = items.length - 1;
     function maxScroll() { return track.scrollWidth - track.clientWidth; }
-    // Index mapped to available scroll range, so every dot is reachable
-    // even when several cards fit on screen at once.
+    // Nearest item to the current scroll position — using real offsets
+    // (rather than a proportional guess) so every index, including the
+    // very first and last, is reached reliably by both buttons and dots.
     function currentIndex() {
-      var ms = maxScroll();
-      if (ms <= 0) return 0;
-      return Math.round((track.scrollLeft / ms) * last);
+      var pos = track.scrollLeft;
+      var closest = 0;
+      var closestDist = Infinity;
+      items.forEach(function (item, i) {
+        var dist = Math.abs(item.offsetLeft - track.offsetLeft - pos);
+        if (dist < closestDist) { closestDist = dist; closest = i; }
+      });
+      return closest;
     }
     function scrollToItem(i) {
       i = Math.max(0, Math.min(last, i));
-      track.scrollTo({ left: maxScroll() * (i / last), behavior: "smooth" });
+      // scrollIntoView respects scroll-padding-left, so the item lands
+      // exactly on its snap point instead of drifting by the gutter size.
+      items[i].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
     }
     function update() {
       // When all cards fit, center them and hide the carousel controls.
