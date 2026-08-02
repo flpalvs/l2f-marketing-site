@@ -399,12 +399,6 @@ p { margin: 0; }
 .portfolio-thumb:hover { box-shadow: 0 16px 28px -18px rgba(12, 18, 32, 0.28); border-color: var(--line-strong); transform: translateY(-3px); }
 .portfolio-thumb .work__media { border-radius: 0; box-shadow: none; background: none; }
 .portfolio-thumb .work__media img { aspect-ratio: 16/9; object-fit: cover; }
-.portfolio-thumb__num {
-  position: absolute; bottom: 8px; left: 8px; z-index: 1;
-  font-family: var(--font-display); font-size: .78rem; color: #fff;
-  background: rgba(12, 18, 32, 0.55); backdrop-filter: blur(4px);
-  padding: .15rem .55rem; border-radius: 100px;
-}
 .portfolio-thumb .work__zoom { width: 30px; height: 30px; }
 
 /* ============================================================
@@ -612,13 +606,13 @@ p { margin: 0; }
 /* ============================================================
    ABOUT
    ============================================================ */
-.about__grid { display: grid; grid-template-columns: 220px 1fr; gap: clamp(1.5rem, 4vw, 4rem); }
-.about__grid .eyebrow { margin-bottom: 0; padding-top: .4rem; }
+.about__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.about__grid .eyebrow { margin-bottom: 0; }
 .about__title {
   font-family: var(--font-display); font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.12;
-  letter-spacing: -0.02em; max-width: 24ch; margin-bottom: 1.75rem;
+  letter-spacing: -0.02em; margin-bottom: 1.75rem;
 }
-.about__text p { color: var(--ink-soft); max-width: 56ch; margin-bottom: 1.1rem; font-size: 1.08rem; }
+.about__text p { color: var(--ink-soft); margin-bottom: 1.1rem; font-size: 1.08rem; }
 
 /* ============================================================
    CTA
