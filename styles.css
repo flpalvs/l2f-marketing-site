@@ -561,16 +561,159 @@ p { margin: 0; }
 .carousel__dots button[aria-selected="true"] { background: #fff; width: 22px; border-radius: 4px; }
 
 /* ============================================================
+   PLANS (pricing cards, sites page)
+   ============================================================ */
+.plans {
+  position: relative; max-width: var(--container); margin-inline: auto;
+  padding: clamp(2.5rem, 7vw, 5rem) var(--gutter) clamp(1rem, 2vw, 1.5rem);
+  overflow: hidden;
+}
+/* Oversized wordmark sitting behind the panel — the panel's top edge
+   crops it, so only its upper half ever shows (same trick as the
+   reference: giant type as texture, not as a headline you read). */
+.plans__word {
+  position: absolute; top: clamp(1.25rem, 3vw, 2.25rem); left: 50%;
+  transform: translateX(-50%);
+  margin: 0; z-index: 0; pointer-events: none; user-select: none;
+  font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+  font-size: clamp(3.25rem, 14vw, 10.5rem); line-height: 1; letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(180deg, rgba(0, 74, 173, 0.16), rgba(0, 74, 173, 0.03));
+  -webkit-background-clip: text; background-clip: text;
+}
+.plans-panel {
+  position: relative; z-index: 1;
+  margin-top: clamp(3.5rem, 9vw, 6.5rem);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(0, 74, 173, 0.14);
+  border-radius: clamp(28px, 4vw, 44px);
+  padding: clamp(2.25rem, 5vw, 3.75rem) clamp(1.5rem, 4vw, 3.25rem) clamp(2.75rem, 5vw, 3.75rem);
+  box-shadow: 0 60px 110px -55px rgba(0, 74, 173, 0.4), 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+}
+.plans-panel__head { text-align: center; padding: 0 0 clamp(2.25rem, 4vw, 3rem); }
+/* Subtitle alone gets a reading measure; the h2 stays unconstrained so it
+   keeps its single line (see .plans .section-title below). */
+.plans-panel__sub { color: var(--ink-soft); font-size: 1.05rem; margin-top: 1.1rem; max-width: 52ch; margin-inline: auto; }
+/* Unconstrained width (26ch cap removed) plus a slightly smaller ceiling
+   than the default .section-title scale — enough to keep the full line
+   inside the panel's padding at every width down to ~640px. */
+.plans .section-title { max-width: none; font-size: clamp(1.85rem, 4.1vw, 3.3rem); }
+
+/* The two creation plans are the decision on this page, so they get the
+   full width of the grid, the larger type scale and a resting elevation
+   that the hospedagem add-on deliberately never receives. */
+.plans__primary {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 2.6vw, 2rem); align-items: stretch;
+}
+.plan-card {
+  position: relative; isolation: isolate;
+  display: flex; flex-direction: column;
+  background: var(--card);
+  border: 1px solid rgba(0, 74, 173, 0.16);
+  border-radius: clamp(20px, 2.4vw, 28px);
+  padding: clamp(2.25rem, 3.4vw, 3rem) clamp(1.75rem, 2.8vw, 2.5rem) clamp(2rem, 3vw, 2.5rem);
+  box-shadow: 0 30px 60px -42px rgba(12, 18, 32, 0.45);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+/* Soft glow resting under the card, echoing the reference's accent glow
+   but dialed down for a white surface — a presence, not a spotlight. */
+.plan-card::after {
+  content: ""; position: absolute; z-index: -1; left: 12%; right: 12%; bottom: -34px; height: 68px;
+  background: radial-gradient(closest-side, rgba(0, 74, 173, 0.28), transparent 72%);
+  filter: blur(18px); opacity: .6; transition: opacity .3s var(--ease);
+}
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 42px 72px -40px rgba(12, 18, 32, 0.42);
+  border-color: rgba(0, 74, 173, 0.34);
+}
+.plan-card:hover::after { opacity: .95; }
+.plan-card__num { font-family: var(--font-display); font-size: 1.05rem; color: var(--blue); }
+/* Fraunces is the site's editorial display face, but at these sizes its
+   ornate, high-contrast forms fight legibility for something people need
+   to scan fast — a plan name, a price. Inter at a heavier weight instead. */
+.plan-card__name {
+  font-family: var(--font-body); font-weight: 600; font-size: clamp(1.4rem, 2vw, 1.7rem);
+  line-height: 1.2; letter-spacing: -0.01em; margin: .5rem 0 .7rem;
+}
+.plan-card__sub { color: var(--ink-soft); font-size: 1.02rem; max-width: 34ch; }
+.plan-card__scope {
+  align-self: flex-start; margin-top: 1.3rem;
+  padding: .4rem 1rem; border-radius: 100px;
+  background: rgba(0, 74, 173, 0.08); color: var(--blue);
+  font-size: .84rem; font-weight: 500; letter-spacing: .01em;
+}
+.plan-card__list {
+  list-style: none; padding: 0; margin: 1.75rem 0 2.25rem;
+  display: flex; flex-direction: column; gap: .85rem;
+}
+.plan-card__list li { position: relative; padding-left: 1.75rem; font-size: 1rem; color: var(--ink-soft); }
+.plan-card__check { position: absolute; left: 0; top: .3rem; color: var(--blue); }
+.plan-card__foot { margin-top: auto; padding-top: 1.9rem; border-top: 1px solid var(--line); }
+.plan-card__price-row { display: flex; align-items: baseline; gap: .3rem; }
+.plan-card__price {
+  font-family: var(--font-body); font-weight: 700; font-size: clamp(2.3rem, 3.6vw, 2.75rem);
+  line-height: 1; letter-spacing: -0.02em; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.plan-card__period { font-size: 1rem; color: var(--ink-soft); }
+.plan-card__note { display: block; margin-top: .6rem; font-size: .86rem; color: var(--ink-soft); }
+.plan-card__cta {
+  width: 100%; justify-content: center; margin-top: 1.6rem;
+  padding: 1.1rem 1.6rem; font-size: 1.02rem;
+}
+
+/* Hospedagem — an add-on, not a third plan. Horizontal band, neutral
+   surface, no elevation: present and clear, but never competing. */
+.plan-addon {
+  margin-top: clamp(1.5rem, 2.6vw, 2rem);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr) auto;
+  gap: clamp(1.75rem, 2.6vw, 2.75rem); align-items: start;
+  background: rgba(0, 74, 173, 0.04); border: 1px solid rgba(0, 74, 173, 0.1);
+  border-radius: clamp(20px, 2.4vw, 28px);
+  padding: clamp(1.9rem, 3vw, 2.5rem) clamp(1.75rem, 2.8vw, 2.5rem);
+}
+.plan-addon__tag { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.plan-addon__name { font-family: var(--font-body); font-weight: 600; font-size: 1.15rem; margin: .5rem 0 .5rem; }
+.plan-addon__sub { color: var(--ink-soft); font-size: .96rem; }
+.plan-addon__restriction {
+  display: flex; align-items: flex-start; gap: .55rem; margin-top: 1.1rem;
+  max-width: 44ch; padding: .7rem .9rem; border-radius: 12px;
+  background: rgba(0, 74, 173, 0.06); border: 1px solid rgba(0, 74, 173, 0.14);
+  color: var(--blue-deep); font-size: .88rem; font-weight: 500;
+}
+.plan-addon__restriction svg { flex-shrink: 0; margin-top: .15rem; color: var(--blue); }
+.plan-addon__list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: .7rem;
+}
+.plan-addon__list li { position: relative; padding-left: 1.6rem; font-size: .93rem; color: var(--ink-soft); }
+.plan-addon__buy { min-width: 200px; text-align: right; }
+.plan-addon__buy .plan-card__price-row { justify-content: flex-end; }
+.plan-addon__price {
+  font-family: var(--font-body); font-weight: 700; font-size: 1.7rem;
+  line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+}
+.plan-addon__cta { margin-top: 1.15rem; }
+
+@media (max-width: 1024px) {
+  .plan-addon { grid-template-columns: 1fr; gap: 1.75rem; }
+  .plan-addon__buy { text-align: left; min-width: 0; }
+  .plan-addon__buy .plan-card__price-row { justify-content: flex-start; }
+}
+@media (max-width: 760px) {
+  .plans__primary { grid-template-columns: 1fr; }
+  .plan-addon__cta { width: 100%; justify-content: center; }
+}
+
+/* ============================================================
    SITES SHOWCASE
    ============================================================ */
-.sites {
-  max-width: var(--container); margin-inline: auto;
-  min-height: calc(100vh - 85px);
-  display: flex; flex-direction: column; justify-content: center;
-}
-@media (min-height: 965px) {
-  .sites { min-height: 880px; }
-}
+.sites { max-width: var(--container); margin-inline: auto; }
+.sites .section-head { padding-top: clamp(2.5rem, 5vw, 4rem); }
 .sites .section-title { max-width: 30ch; }
 .sites__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(1.5rem, 3vw, 2.25rem);
@@ -602,6 +745,43 @@ p { margin: 0; }
   color: var(--ink-soft); transition: color .25s var(--ease), gap .25s var(--ease);
 }
 .site-card:hover .site-card__link { color: var(--blue); gap: .6rem; }
+
+/* ============================================================
+   SITES TEASER (homepage — proof + hand-off to the plans page)
+   ============================================================ */
+.sites-teaser { max-width: var(--container); margin-inline: auto; padding: 0 var(--gutter) clamp(4.5rem, 9vw, 7rem); }
+.sites-teaser .section-head { padding-bottom: 1.25rem; }
+.sites-teaser .section-title { max-width: 26ch; }
+/* No max-width cap — the copy is short enough to sit on one line at any
+   width the section itself supports; only very narrow phones wrap it. */
+.sites-teaser__lead { color: var(--ink-soft); font-size: 1.05rem; max-width: none; margin-top: .75rem; }
+.sites-teaser__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: 1rem;
+}
+/* The hand-off card — a price hook plus a single obvious next step,
+   styled to echo the plans page's own accent so the click feels like a
+   continuation, not a jump to somewhere unrelated. */
+.sites-teaser__cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;
+  margin-top: clamp(1.5rem, 2.6vw, 2rem);
+  background: rgba(0, 74, 173, 0.05); border: 1px solid rgba(0, 74, 173, 0.14);
+  border-radius: clamp(20px, 2.4vw, 28px);
+  padding: clamp(1.75rem, 3vw, 2.25rem) clamp(1.75rem, 3vw, 2.5rem);
+  transition: border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
+}
+.sites-teaser__cta:hover { border-color: rgba(0, 74, 173, 0.3); background: rgba(0, 74, 173, 0.08); transform: translateY(-2px); }
+.sites-teaser__cta-text { display: flex; flex-direction: column; gap: .3rem; }
+.sites-teaser__cta-price { font-size: 1.15rem; color: var(--ink); }
+.sites-teaser__cta-price strong { font-weight: 700; color: var(--blue); }
+.sites-teaser__cta-note { color: var(--ink-soft); font-size: .92rem; }
+.sites-teaser__cta-btn { flex-shrink: 0; pointer-events: none; }
+.sites-teaser__cta:hover .sites-teaser__cta-btn { background: var(--blue-deep); }
+
+@media (max-width: 620px) {
+  .sites-teaser__cta { flex-direction: column; align-items: stretch; text-align: center; }
+  .sites-teaser__cta-btn { justify-content: center; }
+}
 
 /* ============================================================
    ABOUT
@@ -718,6 +898,8 @@ p { margin: 0; }
   .hero__actions .btn, .cta__actions .btn { flex: 1 1 auto; justify-content: center; }
   .identity-gallery__grid { grid-template-columns: 1fr; }
   .portfolio-deck__grid { grid-template-columns: repeat(3, 1fr); }
+  .plan-card { padding: 2rem 1.6rem 1.85rem; }
+  .plan-addon { padding: 1.75rem 1.6rem; }
 }
 
 /* ============================================================
