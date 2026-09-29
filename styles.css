@@ -746,6 +746,18 @@ p { margin: 0; }
 }
 .site-card:hover .site-card__link { color: var(--blue); gap: .6rem; }
 
+/* "Em breve" cards — same frame as live sites, but not a link. */
+.site-card--soon { cursor: default; }
+.site-card--soon:hover { box-shadow: none; border-color: var(--line); }
+.site-card__shot { position: relative; display: block; }
+.site-card__badge {
+  position: absolute; top: .9rem; right: .9rem; padding: .35rem .85rem; border-radius: 100px;
+  background: var(--card); color: var(--blue); border: 1px solid var(--line);
+  font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  box-shadow: 0 6px 16px -8px rgba(12, 18, 32, 0.3);
+}
+.site-card__link--soon { color: var(--ink-faint); }
+
 /* ============================================================
    SITES TEASER (homepage — proof + hand-off to the plans page)
    ============================================================ */
