@@ -97,6 +97,36 @@
     });
   });
 
+  // ---- Custom video players (portfolio carousel) ----
+  var players = document.querySelectorAll(".vplayer");
+  players.forEach(function (box) {
+    var v = box.querySelector("video");
+    var bar = box.querySelector(".vplayer__bar span");
+    var mute = box.querySelector(".vplayer__mute");
+    var btn = box.querySelector(".vplayer__play");
+    function toggle() { if (v.paused) { v.play(); } else { v.pause(); } }
+    box.addEventListener("click", function (e) {
+      if (e.target.closest(".vplayer__mute")) return;
+      toggle();
+    });
+    btn.addEventListener("click", function (e) { e.stopPropagation(); toggle(); });
+    mute.addEventListener("click", function (e) {
+      e.stopPropagation();
+      v.muted = !v.muted;
+      mute.setAttribute("aria-pressed", v.muted ? "true" : "false");
+      mute.setAttribute("aria-label", v.muted ? "Ativar som" : "Silenciar");
+    });
+    v.addEventListener("play", function () {
+      players.forEach(function (o) { var ov = o.querySelector("video"); if (ov !== v) ov.pause(); });
+      box.classList.add("is-playing");
+    });
+    v.addEventListener("pause", function () { box.classList.remove("is-playing"); });
+    v.addEventListener("ended", function () { box.classList.remove("is-playing"); v.currentTime = 0; bar.style.width = "0"; });
+    v.addEventListener("timeupdate", function () {
+      if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + "%";
+    });
+  });
+
   // ---- Projects carousel ----
   var track = document.getElementById("workTrack");
   if (track) {
