@@ -293,6 +293,15 @@ p { margin: 0; }
    the generous default bottom padding leaves a very tall empty gap. */
 .service-included--tight { padding-bottom: clamp(1.5rem, 3vw, 2.25rem); }
 .service-included--tight .service-included__lead { margin-bottom: 0; }
+.service-included:has(+ .service-videos) { padding-bottom: clamp(1rem, 3vw, 2rem); }
+.service-videos { max-width: var(--container); margin-inline: auto; padding: clamp(2rem, 4vw, 3rem) var(--gutter) clamp(4rem, 8vw, 6.5rem); }
+.service-videos .section-head { padding: 0 0 2rem; max-width: none; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 340px)); gap: clamp(1.25rem, 3vw, 2rem); }
+.video-card { margin: 0; }
+.video-card .work__media { box-shadow: 0 24px 44px -26px rgba(12, 18, 32, 0.4); }
+.video-card figcaption { padding: 1rem .25rem 0; }
+.video-card__cat { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); }
+.video-card h3 { font-family: var(--font-display); font-size: 1.3rem; margin: .3rem 0 0; }
 .included__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
 }
