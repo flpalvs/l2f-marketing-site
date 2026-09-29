@@ -399,7 +399,9 @@ p { margin: 0; }
 .portfolio-thumb:hover { box-shadow: 0 16px 28px -18px rgba(12, 18, 32, 0.28); border-color: var(--line-strong); transform: translateY(-3px); }
 .portfolio-thumb .work__media { border-radius: 0; box-shadow: none; background: none; }
 .portfolio-thumb .work__media img { aspect-ratio: 16/9; object-fit: cover; }
-.portfolio-thumb .work__zoom { width: 30px; height: 30px; }
+.portfolio-thumb .work__item--video { cursor: default; }
+.work__media video { width: 100%; aspect-ratio: 4/5; object-fit: contain; display: block; background: #05070d; }
+.work__zoom { width: 30px; height: 30px; }
 
 /* ============================================================
    AUTHORITY

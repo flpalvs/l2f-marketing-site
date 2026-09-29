@@ -87,7 +87,7 @@
     if (lastFocus) lastFocus.focus();
   }
 
-  document.querySelectorAll(".work__item").forEach(function (item) {
+  document.querySelectorAll(".work__item:not(.work__item--video)").forEach(function (item) {
     var full = item.getAttribute("data-full");
     var img = item.querySelector("img");
     var alt = img ? img.getAttribute("alt") : "";
