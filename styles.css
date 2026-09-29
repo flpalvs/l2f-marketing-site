@@ -653,6 +653,8 @@ p { margin: 0; }
 .plan-card__list li { position: relative; padding-left: 1.75rem; font-size: 1rem; color: var(--ink-soft); }
 .plan-card__check { position: absolute; left: 0; top: .3rem; color: var(--blue); }
 .plan-card__foot { margin-top: auto; padding-top: 1.9rem; border-top: 1px solid var(--line); }
+.plans__group { font-family: var(--font-display); font-size: 1.25rem; margin: clamp(1.75rem, 3vw, 2.5rem) 0 1rem; }
+.plans__group span { font-family: inherit; font-size: .85rem; font-weight: 500; color: var(--ink-soft); margin-left: .5rem; }
 .plan-card__price-row { display: flex; align-items: baseline; gap: .3rem; }
 .plan-card__price {
   font-family: var(--font-body); font-weight: 700; font-size: clamp(2.3rem, 3.6vw, 2.75rem);
