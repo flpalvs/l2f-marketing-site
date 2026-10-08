@@ -190,4 +190,32 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && lb.classList.contains("lightbox--open")) closeLightbox();
   });
+
+  // ---- Site cards: border glow that follows the pointer (port of React Bits BorderGlow) ----
+  document.querySelectorAll(".site-card").forEach(function (card) {
+    var glow = document.createElement("span");
+    glow.className = "edge-light";
+    glow.setAttribute("aria-hidden", "true");
+    card.insertBefore(glow, card.firstChild);
+    card.addEventListener("pointermove", function (e) {
+      var r = card.getBoundingClientRect();
+      var dx = e.clientX - r.left - r.width / 2;
+      var dy = e.clientY - r.top - r.height / 2;
+      var kx = dx ? (r.width / 2) / Math.abs(dx) : Infinity;
+      var ky = dy ? (r.height / 2) / Math.abs(dy) : Infinity;
+      var edge = Math.min(Math.max(1 / Math.min(kx, ky), 0), 1);
+      var angle = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+      if (angle < 0) angle += 360;
+      card.style.setProperty("--edge-proximity", (edge * 100).toFixed(3));
+      card.style.setProperty("--cursor-angle", angle.toFixed(3) + "deg");
+    });
+  });
+
+  // ---- Image protection: no drag, right-click menu or "open in new tab" on images ----
+  document.addEventListener("contextmenu", function (e) {
+    if (e.target.closest && e.target.closest("img")) e.preventDefault();
+  });
+  document.addEventListener("dragstart", function (e) {
+    if (e.target.tagName === "IMG") e.preventDefault();
+  });
 })();
