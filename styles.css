@@ -844,6 +844,7 @@ a.brand-card { cursor: pointer; }
   font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   box-shadow: 0 6px 16px -8px rgba(12, 18, 32, 0.3);
 }
+.site-card__badge--new { background: var(--blue); color: #fff; border-color: var(--blue); }
 .site-card__link--soon { color: var(--ink-faint); }
 
 /* ============================================================
@@ -1137,6 +1138,7 @@ a.brand-card { cursor: pointer; }
   top: 1rem; right: 1rem; background: rgba(255,255,255,.78); border-color: rgba(255,255,255,.6);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-size: .66rem; letter-spacing: .16em;
 }
+.site-card__badge.site-card__badge--new { background: var(--blue); color: #fff; border-color: var(--blue); }
 @media (prefers-reduced-motion: reduce) {
   .site-card__frame img, .site-card__link svg { transition: none; }
   .site-card:hover .site-card__frame img { transform: none; }
